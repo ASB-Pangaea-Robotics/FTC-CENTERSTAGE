@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.common;
 
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.arcrobotics.ftclib.hardware.motors.MotorGroup;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.common.roadrunner.drive.SampleMecanumDrive;
@@ -20,30 +22,30 @@ public class Hardware {
     }
 
     /**= Everything Else =**/
-    private static HardwareMap hardwareMap;
-
     public Motor leftBack;
     public Motor leftFront;
     public Motor rightBack;
     public Motor rightFront;
 
-    public Motor slidesRight;
-    public Motor slidesLeft;
+    public MotorEx slidesRight;
+    public MotorEx slidesLeft;
+
+    public Motor.Encoder slidesRightEncoder;
+    public Motor.Encoder slidesLeftEncoder;
 
     public SampleMecanumDrive drive;
 
     public static Boolean enabled = false;
 
-    public void initHardware(HardwareMap hardwareMap){
-        Hardware.hardwareMap = hardwareMap;
-
+    public void initHardware(HardwareMap hardwareMap) {
         leftBack = new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312);
         leftFront = new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_312);
         rightBack = new Motor(hardwareMap, "rightBack", Motor.GoBILDA.RPM_312);
         rightFront = new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_312);
 
-        slidesRight = new Motor(hardwareMap, "slidesRight", Motor.GoBILDA.RPM_435);
-        slidesLeft = new Motor(hardwareMap, "slidesLeft", Motor.GoBILDA.RPM_435);
+        slidesRight = new MotorEx(hardwareMap, "slidesRight", Motor.GoBILDA.RPM_435);
+        slidesLeft = new MotorEx(hardwareMap, "slidesLeft", Motor.GoBILDA.RPM_435);
+
 
         leftBack.setInverted(true);
         leftFront.setInverted(true);

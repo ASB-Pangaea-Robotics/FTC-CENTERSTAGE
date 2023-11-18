@@ -33,10 +33,11 @@ public class OuttakeSubsystem extends SubsystemBase {
     }
 
     public void read() {
-
+//        currentPosition = robotHardware.slides.getCurrentPosition();
     }
 
     public void loop() {
+        
         this.controller.calculate(currentPosition, targetPosition);
     }
 
