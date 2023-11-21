@@ -8,8 +8,14 @@ public class ActiveIntakeSubsystem extends SubsystemBase {
 
     private final Hardware robotHardware;
 
+    private double power;
+
     ActiveIntakeSubsystem(Hardware robotHardware) {
         this.robotHardware = robotHardware;
+    }
+
+    public void setMotorPower(double power) {
+        this.power = power;
     }
 
     public void read() {
@@ -21,7 +27,7 @@ public class ActiveIntakeSubsystem extends SubsystemBase {
     }
 
     public void write() {
-
+        robotHardware.intakeMotor.set(power);
     }
 
 }

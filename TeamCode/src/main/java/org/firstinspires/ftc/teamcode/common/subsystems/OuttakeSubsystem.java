@@ -33,7 +33,8 @@ public class OuttakeSubsystem extends SubsystemBase {
     }
 
     public void read() {
-//        currentPosition = robotHardware.slides.getCurrentPosition();
+        currentPosition = (robotHardware.slidesLeft.getCurrentPosition() +
+                robotHardware.slidesRight.getCurrentPosition())/2;
     }
 
     public void loop() {

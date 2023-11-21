@@ -27,6 +27,8 @@ public class Hardware {
     public Motor rightBack;
     public Motor rightFront;
 
+    public Motor intakeMotor;
+
     public MotorEx slidesRight;
     public MotorEx slidesLeft;
 
@@ -42,6 +44,8 @@ public class Hardware {
         leftFront = new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_312);
         rightBack = new Motor(hardwareMap, "rightBack", Motor.GoBILDA.RPM_312);
         rightFront = new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_312);
+
+        intakeMotor = new Motor(hardwareMap, "intakeMotor", Motor.GoBILDA.RPM_1150);
 
         slidesRight = new MotorEx(hardwareMap, "slidesRight", Motor.GoBILDA.RPM_435);
         slidesLeft = new MotorEx(hardwareMap, "slidesLeft", Motor.GoBILDA.RPM_435);

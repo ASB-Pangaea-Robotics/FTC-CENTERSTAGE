@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -47,8 +48,10 @@ public class AutoTest extends LinearOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new DriveToPointCommand(robot.drive, SpikePlaceTrajectory),
-                        new SlideUpdateCommand(outtakeSubsystem, SlideHeights.LOW_STRIPE)
+                        new ParallelCommandGroup(
+                                new DriveToPointCommand(robot.drive, SpikePlaceTrajectory),
+                                new SlideUpdateCommand(outtakeSubsystem, SlideHeights.LOW_STRIPE)
+                        )
                 )
         );
 
