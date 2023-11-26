@@ -4,9 +4,9 @@ public enum SlideHeights {
 
 
     GROUND(0),
-    LOW_STRIPE(1),
-    MED_STRIPE(2),
-    HIGH_STRIPE(3);
+    LOW_STRIPE(100),
+    MED_STRIPE(200),
+    HIGH_STRIPE(300);
 
     private final int ticks;
 

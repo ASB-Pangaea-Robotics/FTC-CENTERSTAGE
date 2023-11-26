@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.opmodes.auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -14,6 +12,7 @@ import org.firstinspires.ftc.teamcode.common.Hardware;
 import org.firstinspires.ftc.teamcode.common.SlideHeights;
 import org.firstinspires.ftc.teamcode.common.commands.DriveToPointCommand;
 import org.firstinspires.ftc.teamcode.common.commands.SlideUpdateCommand;
+import org.firstinspires.ftc.teamcode.common.roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.common.subsystems.ActiveIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.MecanumSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.OuttakeSubsystem;
@@ -28,7 +27,7 @@ public class AutoTest extends LinearOpMode {
     OuttakeSubsystem outtakeSubsystem;
 
 
-    Trajectory SpikePlaceTrajectory;
+    TrajectorySequence SpikePlaceTrajectory;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -42,15 +41,17 @@ public class AutoTest extends LinearOpMode {
 
         robot.drive.setPoseEstimate(new Pose2d(0, 0, 0));
 
-        SpikePlaceTrajectory = robot.drive.trajectoryBuilder(new Pose2d())
+        SpikePlaceTrajectory = robot.drive.trajectorySequenceBuilder(new Pose2d())
                 .lineToLinearHeading(new Pose2d(20.0, 20.0, 180))
+                .splineTo(new Vector2d(60,60), 0)
                 .build();
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
                                 new DriveToPointCommand(robot.drive, SpikePlaceTrajectory),
-                                new SlideUpdateCommand(outtakeSubsystem, SlideHeights.LOW_STRIPE)
+                                new SlideUpdateCommand(outtakeSubsystem, SlideHeights.GROUND)
+
                         )
                 )
         );

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
 
+import org.firstinspires.ftc.teamcode.common.FourbarPositions;
 import org.firstinspires.ftc.teamcode.common.Hardware;
 import org.firstinspires.ftc.teamcode.common.SlideHeights;
 
@@ -31,6 +32,7 @@ public class OuttakeSubsystem extends SubsystemBase {
     public void update(SlideHeights height) {
         targetPosition = height.getTicks();
     }
+    public void update(FourbarPositions position) {robotHardware.fourBarRight.setPosition(position.getPosition(position));}
 
     public void read() {
         currentPosition = (robotHardware.slidesLeft.getCurrentPosition() +

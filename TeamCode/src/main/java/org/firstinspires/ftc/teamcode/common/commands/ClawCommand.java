@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.OuttakeSubsystem;
 public class ClawCommand extends CommandBase {
 
     OuttakeSubsystem outtake;
-    public ClawCommand(OuttakeSubsystem outtake) {
+    public ClawCommand(OuttakeSubsystem outtake, double pos) {
         this.outtake = outtake;
     }
 

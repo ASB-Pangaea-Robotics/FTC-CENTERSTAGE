@@ -9,6 +9,7 @@ public class ActiveIntakeSubsystem extends SubsystemBase {
     private final Hardware robotHardware;
 
     private double power;
+    private double currentVel;
 
     ActiveIntakeSubsystem(Hardware robotHardware) {
         this.robotHardware = robotHardware;
@@ -19,7 +20,7 @@ public class ActiveIntakeSubsystem extends SubsystemBase {
     }
 
     public void read() {
-
+        currentVel = robotHardware.intakeMotor.getCorrectedVelocity();
     }
 
     public void loop() {

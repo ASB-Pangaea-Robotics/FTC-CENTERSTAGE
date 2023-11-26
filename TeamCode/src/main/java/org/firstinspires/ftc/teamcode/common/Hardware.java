@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.common;
 
+import com.arcrobotics.ftclib.hardware.ServoEx;
+import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.arcrobotics.ftclib.hardware.motors.MotorGroup;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.common.roadrunner.drive.SampleMecanumDrive;
@@ -32,8 +33,8 @@ public class Hardware {
     public MotorEx slidesRight;
     public MotorEx slidesLeft;
 
-    public Motor.Encoder slidesRightEncoder;
-    public Motor.Encoder slidesLeftEncoder;
+    public ServoEx fourBarLeft;
+    public ServoEx fourBarRight;
 
     public SampleMecanumDrive drive;
 
@@ -50,6 +51,8 @@ public class Hardware {
         slidesRight = new MotorEx(hardwareMap, "slidesRight", Motor.GoBILDA.RPM_435);
         slidesLeft = new MotorEx(hardwareMap, "slidesLeft", Motor.GoBILDA.RPM_435);
 
+        fourBarLeft = new SimpleServo(hardwareMap, "fourBarLeft", 0, 355);
+        fourBarRight = new SimpleServo(hardwareMap, "fourBarRight", 0, 355);
 
         leftBack.setInverted(true);
         leftFront.setInverted(true);
