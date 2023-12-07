@@ -9,9 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.common.Hardware;
-import org.firstinspires.ftc.teamcode.common.SlideHeights;
 import org.firstinspires.ftc.teamcode.common.commands.DriveToPointCommand;
-import org.firstinspires.ftc.teamcode.common.commands.SlideUpdateCommand;
 import org.firstinspires.ftc.teamcode.common.roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.common.subsystems.ActiveIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.MecanumSubsystem;
@@ -49,8 +47,8 @@ public class AutoTest extends LinearOpMode {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
-                                new DriveToPointCommand(robot.drive, SpikePlaceTrajectory),
-                                new SlideUpdateCommand(outtakeSubsystem, SlideHeights.GROUND)
+                                new DriveToPointCommand(robot.drive, SpikePlaceTrajectory)
+//                                new SlideUpdateCommand(outtakeSubsystem, SlideHeights.GROUND)
 
                         )
                 )

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.common;
 
 import com.arcrobotics.ftclib.hardware.ServoEx;
-import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -46,13 +45,13 @@ public class Hardware {
         rightBack = new Motor(hardwareMap, "rightBack", Motor.GoBILDA.RPM_312);
         rightFront = new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_312);
 
-        intakeMotor = new Motor(hardwareMap, "intakeMotor", Motor.GoBILDA.RPM_1150);
-
-        slidesRight = new MotorEx(hardwareMap, "slidesRight", Motor.GoBILDA.RPM_435);
-        slidesLeft = new MotorEx(hardwareMap, "slidesLeft", Motor.GoBILDA.RPM_435);
-
-        fourBarLeft = new SimpleServo(hardwareMap, "fourBarLeft", 0, 355);
-        fourBarRight = new SimpleServo(hardwareMap, "fourBarRight", 0, 355);
+//        intakeMotor = new Motor(hardwareMap, "intakeMotor", Motor.GoBILDA.RPM_1150);
+//
+//        slidesRight = new MotorEx(hardwareMap, "slidesRight", Motor.GoBILDA.RPM_435);
+//        slidesLeft = new MotorEx(hardwareMap, "slidesLeft", Motor.GoBILDA.RPM_435);
+//
+//        fourBarLeft = new SimpleServo(hardwareMap, "fourBarLeft", 0, 355);
+//        fourBarRight = new SimpleServo(hardwareMap, "fourBarRight", 0, 355);
 
         leftBack.setInverted(true);
         leftFront.setInverted(true);

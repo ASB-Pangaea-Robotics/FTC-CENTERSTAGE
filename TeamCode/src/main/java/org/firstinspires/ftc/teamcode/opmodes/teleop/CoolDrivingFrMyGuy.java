@@ -1,34 +1,28 @@
-package org.firstinspires.ftc.teamcode.opmodes.auto;
+package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
+import com.qualcomm.hardware.bosch.BHI260IMU;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.hardware.bosch.BNO055IMU;
-
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-
-
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
 
-import com.qualcomm.robotcore.hardware.Servo;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
-@TeleOp(name = "Omnidirectional (Blocks to Java)")
-public class Omnidirectional extends LinearOpMode {
+@TeleOp
+public class CoolDrivingFrMyGuy extends LinearOpMode {
 
     private DcMotor leftBack;
     private DcMotor leftFront;
-
-    private Servo Servo1;
-    private Servo Servo2;
     private DcMotor rightBack;
     private DcMotor rightFront;
-//    private DcMotor ArmMotor1;
 
-    BNO055IMU imu;
+    BHI260IMU imu;
 
     Orientation angles;
 
@@ -36,37 +30,37 @@ public class Omnidirectional extends LinearOpMode {
      */
     @Override
     public void runOpMode() {
-        int heightVal;
-        double MotorPower;
-        int ArmMotorPower;
-        double dpadSens;
-        double joyStickSens;
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        IMU.Parameters imuParameters = new IMU.Parameters(
+                new RevHubOrientationOnRobot(
+                        new Orientation(
+                                AxesReference.INTRINSIC,
+                                AxesOrder.ZYX,
+                                AngleUnit.RADIANS,
+                                0,
+                                0,
+                                0,
+                                0
+                        )
+                )
+        );
 
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+        imu = hardwareMap.get(BHI260IMU.class, "imu");
+        imu.initialize(imuParameters);
 
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
 
-        Servo1 = hardwareMap.get(Servo.class, "Servo1");
-        Servo2 = hardwareMap.get(Servo.class, "Servo2");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        // ArmMotor1 = hardwareMap.get(DcMotor.class, "ArmMotor1");
 
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        heightVal = 0;
-        MotorPower = .3;
-        ArmMotorPower = 1;
         waitForStart();
         if (opModeIsActive()) {
             // Put run blocks here.
             while (opModeIsActive()) {
-                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+                angles = imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
                 telemetry.addData("Heading", angles.firstAngle);
                 telemetry.addData("Roll", angles.secondAngle);
                 telemetry.addData("Pitch", angles.thirdAngle);
@@ -76,7 +70,7 @@ public class Omnidirectional extends LinearOpMode {
                 double turn = gamepad1.right_stick_x;
 
                 double theta = (Math.atan2(y, x));
-                double power = (Math.hypot(x, y))*.6;
+                double power = (Math.hypot(x, y));
 
                 telemetry.addData("Theta", theta);
                 theta -= angles.firstAngle;

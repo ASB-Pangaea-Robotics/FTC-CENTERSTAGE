@@ -102,7 +102,20 @@ public class MeepMeepTesting {
                                 .lineToConstantHeading(new Vector2d(60, -61))
                                 .build());
 
-
+        RoadRunnerBotEntity redAltStacksCenterBot = new DefaultBotBuilder(meepmeep)
+                .setConstraints(40, 30, Math.toRadians(120), Math.toRadians(100), 15)
+                .setColorScheme(new ColorSchemeRedDark())
+                .followTrajectorySequence(driveShim ->
+                        driveShim.trajectorySequenceBuilder(new Pose2d(-37.5,-61.5,Math.toRadians(270)))
+                                .waitSeconds(2)
+                                .lineToConstantHeading(new Vector2d(-36,-34))
+                                .waitSeconds(2)
+                                .lineTo(new Vector2d(25,-34))
+                                .lineToLinearHeading(new Pose2d(48, -36, Math.toRadians(180)))
+                                .waitSeconds(2)
+                                .lineToConstantHeading(new Vector2d(48, -61))
+                                .lineToConstantHeading(new Vector2d(60, -61))
+                                .build());
 
 
 
@@ -112,9 +125,10 @@ public class MeepMeepTesting {
 //                .addEntity(redStacksCenterBot)
 //                .addEntity(redStacksLeftBot)
 //                .addEntity(redStacksRightBot)
-                .addEntity(redBackdropCenterBot)
-                .addEntity(redBackdropLeftBot)
-                .addEntity(redBackdropRightBot)
+//                .addEntity(redBackdropCenterBot)
+//                .addEntity(redBackdropLeftBot)
+//                .addEntity(redBackdropRightBot)
+                .addEntity(redAltStacksCenterBot)
                 .start();
     }
 }
