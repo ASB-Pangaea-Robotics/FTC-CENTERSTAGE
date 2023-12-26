@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.opmodes.auto;
+package org.firstinspires.ftc.teamcode.opmodes.testing;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -26,6 +27,7 @@ public class AutoTest extends LinearOpMode {
 
 
     TrajectorySequence SpikePlaceTrajectory;
+    Trajectory parkTraj;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -44,10 +46,15 @@ public class AutoTest extends LinearOpMode {
                 .splineTo(new Vector2d(60,60), 0)
                 .build();
 
+        parkTraj = robot.drive.trajectoryBuilder(new Pose2d())
+                .lineToConstantHeading(new Vector2d(0,60))
+                .build();
+
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
-                                new DriveToPointCommand(robot.drive, SpikePlaceTrajectory)
+                                new DriveToPointCommand(robot.drive, SpikePlaceTrajectory),
+                                new DriveToPointCommand(robot.drive, parkTraj)
 //                                new SlideUpdateCommand(outtakeSubsystem, SlideHeights.GROUND)
 
                         )

@@ -22,6 +22,8 @@ public class OuttakeSubsystem extends SubsystemBase {
 
     int allowedError = 20;
 
+    double slidesPower = 0;
+
     public OuttakeSubsystem(Hardware robotHardware) {
         this.robotHardware = robotHardware;
 
@@ -40,11 +42,12 @@ public class OuttakeSubsystem extends SubsystemBase {
     }
 
     public void loop() {
-        
-        this.controller.calculate(currentPosition, targetPosition);
+
+        slidesPower = controller.calculate(currentPosition, targetPosition);
     }
 
     public void write() {
-
+        robotHardware.slidesRight.set(slidesPower);
+        robotHardware.slidesLeft.set(slidesPower);
     }
 }

@@ -11,7 +11,7 @@ public class ActiveIntakeSubsystem extends SubsystemBase {
     private double power;
     private double currentVel;
 
-    ActiveIntakeSubsystem(Hardware robotHardware) {
+    public ActiveIntakeSubsystem(Hardware robotHardware) {
         this.robotHardware = robotHardware;
     }
 

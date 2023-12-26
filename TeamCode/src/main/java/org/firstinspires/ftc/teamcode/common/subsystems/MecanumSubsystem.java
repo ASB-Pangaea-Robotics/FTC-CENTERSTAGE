@@ -7,7 +7,10 @@ import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.FunctionalCommand;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.common.Hardware;
 import org.firstinspires.ftc.teamcode.common.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.roadrunner.trajectorysequence.TrajectorySequence;
 
@@ -80,6 +83,42 @@ public class MecanumSubsystem extends SubsystemBase  {
                         )
                 ), this
         );
+    }
+
+    public double[] fieldCentricCalc(Hardware robot, Gamepad gamepad1) {
+        robot.orientation = robot.imu.getRobotYawPitchRollAngles();
+
+        double x = gamepad1.left_stick_x;
+        double y = -gamepad1.left_stick_y;
+        double turn = gamepad1.right_stick_x;
+
+        double theta = (Math.atan2(y, x));
+        double power = (Math.hypot(x, y));
+
+        theta -= robot.orientation.getYaw(AngleUnit.RADIANS);
+
+        double sin = Math.sin(theta - Math.PI/4);
+        double cos = Math.cos(theta - Math.PI/4);
+        double max = (Math.max(Math.abs(sin),Math.abs(cos)));
+
+        double leftBackPow = power * sin/max + turn;
+        double leftFrontPow = power * cos/max + turn;
+        double rightBackPow = power * cos/max - turn;
+        double rightFrontPow = power * sin/max - turn;
+
+        if ((power + Math.abs(turn)) > 1){
+            leftBackPow /= power + Math.abs(turn);
+            leftFrontPow /= power + Math.abs(turn);
+            rightBackPow /= power + Math.abs(turn);
+            rightFrontPow /= power + Math.abs(turn);
+        }
+
+        return new double[] {
+                leftBackPow,
+                leftFrontPow,
+                rightBackPow,
+                rightFrontPow
+        };
     }
 
     public void write() {
